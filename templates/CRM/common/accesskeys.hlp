@@ -1,8 +1,7 @@
 {* This overwrites the default CiviCRM access keys help in every page's footer. *}
 {htxt id="accesskeys-title"}Sneltoetsen{/htxt}
 {htxt id="accesskeys"}
-<p>Op dit moment zijn de volgende sneltoetsen beschikbaar:<br/>
-    &nbsp;</p>
+<p class="gap">Op dit moment zijn de volgende sneltoetsen beschikbaar:</p>
 <ul>
     <li>SHIFT+H - <em>Naar dashboard</em></li>
     <li>SHIFT+M - <em>Open menu</em></li>

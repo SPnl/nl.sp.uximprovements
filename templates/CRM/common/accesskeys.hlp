@@ -1,0 +1,31 @@
+{* This overwrites the default CiviCRM access keys help in every page's footer. *}
+{htxt id="accesskeys-title"}Sneltoetsen{/htxt}
+{htxt id="accesskeys"}
+<p>Op dit moment zijn de volgende sneltoetsen beschikbaar:<br/>
+    &nbsp;</p>
+<ul>
+    <li>SHIFT+H - <em>Naar dashboard</em></li>
+    <li>SHIFT+M - <em>Open menu</em></li>
+    <li>SHIFT+F - <em>Activeer zoekveld bovenaan</em></li>
+    <li>CTRL+SHIFT+F - <em>Geavanceerd zoeken</em></li>
+    <li>SHIFT+N - <em>Nieuw contact</em></li>
+</ul>
+<p><em>Homepage:</em></p>
+<ul>
+    <li>F - <em>Activeer snelzoek-veld</em></li>
+</ul>
+<p><em>Contacten:</em></p>
+<ul>
+    <li>TAB - <em>Naar volgende tabblad</em></li>
+    <li>SHIFT+TAB - <em>Naar vorige tabblad</em></li>
+    <li>E - <em>Contact bewerken</em></li>
+    <li>D - <em>Contact verwijderen</em></li>
+    <li>N - <em>Nieuw lidmaatschap/bijdrage e.d.</em></li>
+</ul>
+<p><em>Formulieren:</em></p>
+<ul>
+    <li>SHIFT+S - <em>Opslaan</em></li>
+    <li>CTRL+SHIFT+S - <em>Opslaan en nieuw</em></li>
+    <li>(SHIFT+)ESC - <em>Annuleren</em></li>
+</ul>
+{/htxt}

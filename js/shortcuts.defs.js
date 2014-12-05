@@ -20,7 +20,7 @@ var spShortcuts = [
             ['shift+m', '', function() {
                 cj('.menumain.crm-Search').trigger('click').addClass('activetarget');
             }],
-            ['shift+h', '/', 'goto'],
+            ['shift+h', '/civicrm/', 'goto'],
             ['ctrl+shift+f', '/civicrm/contact/search/advanced?reset=1', 'goto'],
             ['shift+n', '/civicrm/contact/add?reset=1&ct=Individual', 'goto']
         ]

@@ -16,7 +16,7 @@ cj(function () {
         return !!(obj && obj.constructor && obj.call && obj.apply);
     };
 
-    // Parse shortcuts!
+    // Parse shortcuts that are defined in shortcuts.defs.js
     if (spShortcuts !== undefined) {
 
         cj.each(spShortcuts, function (index, sGroup) {
@@ -68,17 +68,34 @@ cj(function () {
         });
     }
 
-    // Enable keyboard navigation for CiviCRM menu (still testing)
-    cj('body').keyup(function (e) {
-        if (e.keyCode != 13)
+    // Global behaviour for enter and esc keys
+    cj('body').on('keyup', function (e) {
+        var validKeycodes = [13, 27];
+        if(validKeycodes.indexOf(e.keyCode) == -1) {
             return true;
+        }
 
-        var menuIsOpen = cj('#civicrm-menu .activetarget').length > 0;
-        if (menuIsOpen) {
+        // Enable keyboard navigation for CiviCRM menu, press enter to select item
+        if (e.keyCode == 13 && cj('#civicrm-menu .activetarget').length > 0) {
 
             var activeItem = cj('#root-menu-div li.active a');
-            if (activeItem)
-                location.href = activeItem.attr('href');
+            if (activeItem.length > 0) {
+                location.href = activeItem.eq(0).attr('href');
+            }
+        }
+
+        // If focus is on an input field ESC removes focus, which enables the user to use other shortcuts
+        if(e.keyCode == 27) {
+
+            var focused = document.activeElement;
+            if (!focused || focused == document.body)
+                focused = null;
+            else if (document.querySelector)
+                focused = document.querySelector(":focus");
+
+            if(cj(focused).is("input, select, textarea")) {
+                cj(focused).blur();
+            }
         }
     });
 });

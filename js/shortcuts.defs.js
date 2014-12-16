@@ -31,7 +31,7 @@ var spShortcuts = [
         'name': 'home',
         'condition': '#civicrm-dashboard',
         'shortcuts': [
-            ['f', '#spqs-form .spqs-id', 'focus']
+            ['f', '#spqs-form #spqs-id', 'focus']
         ]
     },
 

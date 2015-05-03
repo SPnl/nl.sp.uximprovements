@@ -4,7 +4,7 @@
  * Shortcuts are defined in shortcuts.def.js, then parsed here
  */
 
-cj(function () {
+cj(function ($) {
 
     // Prevent console errors on IE
     if (!window.console)
@@ -19,21 +19,21 @@ cj(function () {
     // Parse shortcuts that are defined in shortcuts.defs.js
     if (spShortcuts !== undefined) {
 
-        cj.each(spShortcuts, function (index, sGroup) {
+        $.each(spShortcuts, function (index, sGroup) {
 
             if (!('name' in sGroup && 'condition' in sGroup && 'shortcuts' in sGroup)) {
                 // console.log('Invalid parameters for shortcut group.');
                 return true;
             }
 
-            if (sGroup.condition != '' && cj(sGroup.condition).length == 0) {
+            if (sGroup.condition != '' && $(sGroup.condition).length == 0) {
                 // console.log('Skipping shortcut group ' + sGroup.name + ': condition not met.');
                 return true;
             }
 
             // console.log('Parsing shortcuts group ' + sGroup.name);
 
-            cj.each(sGroup.shortcuts, function (index, shortcut) {
+            $.each(sGroup.shortcuts, function (index, shortcut) {
 
                 var keys = shortcut[0];
                 var element = shortcut[1];
@@ -58,7 +58,7 @@ cj(function () {
                     } else {
 
                         // console.log('Shortcut ' + keys + ' pressed: triggers ' + action + ' event on element ' + element + '.');
-                        cj(element).trigger(action);
+                        $(element).trigger(action);
                     }
 
                     e.stopPropagation();
@@ -69,16 +69,16 @@ cj(function () {
     }
 
     // Global behaviour for enter and esc keys
-    cj('body').on('keyup', function (e) {
+    $('body').on('keyup', function (e) {
         var validKeycodes = [13, 27];
         if(validKeycodes.indexOf(e.keyCode) == -1) {
             return true;
         }
 
         // Enable keyboard navigation for CiviCRM menu, press enter to select item
-        if (e.keyCode == 13 && cj('#civicrm-menu .activetarget').length > 0) {
+        if (e.keyCode == 13 && $('#civicrm-menu .activetarget').length > 0) {
 
-            var activeItem = cj('#root-menu-div li.active a');
+            var activeItem = $('#root-menu-div li.active a');
             if (activeItem.length > 0) {
                 location.href = activeItem.eq(0).attr('href');
             }
@@ -93,8 +93,8 @@ cj(function () {
             else if (document.querySelector)
                 focused = document.querySelector(":focus");
 
-            if(cj(focused).is("input, select, textarea")) {
-                cj(focused).blur();
+            if($(focused).is("input, select, textarea")) {
+                $(focused).blur();
             }
         }
     });

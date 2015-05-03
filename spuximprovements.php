@@ -6,18 +6,39 @@
 
 require_once 'spuximprovements.civix.php';
 
+/**
+ * Implements hook_config.
+ * Adds our JavaScript to the page footer.
+ * @param mixed $config CiviCRM Config
+ */
 function spuximprovements_civicrm_config(&$config) {
 
 	CRM_Core_Resources::singleton()
 		->addScriptFile('nl.sp.uximprovements', 'js/mousetrap.min.js', 1001, 'page-footer', FALSE)
 		->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.defs.js', 1002, 'page-footer', FALSE)
 		->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.js', 1003, 'page-footer', FALSE)
-        ->addScriptFile('nl.sp.uximprovements', 'js/inputvalidation.js', 1004, 'page-footer', FALSE);
+        ->addScriptFile('nl.sp.uximprovements', 'js/bindfirst.min.js', 1011, 'page-footer', FALSE)
+        ->addScriptFile('nl.sp.uximprovements', 'js/inputvalidation.js', 1012, 'page-footer', FALSE);
 
   _spuximprovements_civix_civicrm_config($config);
 }
 
-/* End */
+/**
+ * Implements hook_postcodenl_get.
+ * Van Jaap mag de plaatsnaam niet in hoofdletters in org.civicoop.postcodenl.
+ * Dit is voor Oane en Mathijs. ;-)
+ * @param array $returnValues Results returned by org.civicoop.postcodenl
+ */
+function spuximprovements_civicrm_postcodenl_get(&$returnValues = array()) {
+  if(count($returnValues) > 0) {
+    foreach($returnValues as &$r) {
+      $r['gemeente'] = strtoupper($r['gemeente']);
+      $r['woonplaats'] = strtoupper($r['woonplaats']);
+    }
+  }
+}
+
+/* Default Civix hooks follow */
 
 function spuximprovements_civicrm_xmlMenu(&$files) {
   _spuximprovements_civix_civicrm_xmlMenu($files);

@@ -1,19 +1,19 @@
 /*
- * Input validation (currently only for postcode / woonplaats
+ * Input validation (currently only for postcode / woonplaats)
  */
 
-cj(function () {
+cj(function ($) {
 
-    // Prevent console errors on IE
-    if (!window.console)
-        console = { log: function () {
-        } };
-
-    $('.crm-edit-address-form').on('keyup', '[id^=postcodenl_postcode_], [id$=city]', function(ev) {
-               console.log('keyup in ', $(this).attr('id'));
+    $('#addressBlock, .crm-address-block').onFirst('keyup', '[id^=postcodenl_postcode_]', function(ev) {
+        var postcode = $(this).val().replace(/^([0-9]{4})([a-zA-Z]{2})$/, "$1 $2").toUpperCase();
+        if(postcode != $(this).val()) {
+            $(this).val(postcode);
+            $(this).closest('table').find('[id$=postal_code]').val(postcode);
+        }
     });
 
-    $('.crm-edit-address-form').on('change', '[id^=postcodenl_postcode_], [id$=city]', function(ev) {
-        console.log('change in ', $(this).attr('id'));
+    $('#addressBlock, .crm-address-block').onFirst('change', '[id$=city]', function(ev) {
+        var city = $(this).val().toUpperCase();
+        $(this).val(city);
     });
 });

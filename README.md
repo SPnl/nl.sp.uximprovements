@@ -1,4 +1,4 @@
-nl.sp.shortcuts
-===============
+nl.sp.uximprovements
+====================
 
-Keyboard shortcut handling voor SP CiviCRM
+Keyboard shortcut handling voor SP CiviCRM, _and more_!

@@ -7,20 +7,31 @@
 require_once 'spuximprovements.civix.php';
 
 /**
- * Implements hook_config.
- * Adds our JavaScript to the page footer.
+ * Add all our JS to the current request (called by function below).
+ */
+function _spuximprovements_load_assets() {
+  CRM_Core_Resources::singleton()
+      ->addScriptFile('nl.sp.uximprovements', 'js/mousetrap.min.js', 1001, 'page-footer', FALSE)
+      ->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.defs.js', 1002, 'page-footer', FALSE)
+      ->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.js', 1003, 'page-footer', FALSE)
+      ->addScriptFile('nl.sp.uximprovements', 'js/bindfirst.min.js', 1011, 'page-footer', FALSE)
+      ->addScriptFile('nl.sp.uximprovements', 'js/inputvalidation.js', 1012, 'page-footer', FALSE);
+}
+
+/**
+ * Implements civicrm_hook_config.
  * @param mixed $config CiviCRM Config
  */
 function spuximprovements_civicrm_config(&$config) {
 
-	CRM_Core_Resources::singleton()
-		->addScriptFile('nl.sp.uximprovements', 'js/mousetrap.min.js', 1001, 'page-footer', FALSE)
-		->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.defs.js', 1002, 'page-footer', FALSE)
-		->addScriptFile('nl.sp.uximprovements', 'js/shortcuts.js', 1003, 'page-footer', FALSE)
-        ->addScriptFile('nl.sp.uximprovements', 'js/bindfirst.min.js', 1011, 'page-footer', FALSE)
-        ->addScriptFile('nl.sp.uximprovements', 'js/inputvalidation.js', 1012, 'page-footer', FALSE);
+  // There doesn't seem to be a reliable way to check for an ajax / inline request in CiviCRM. So we're checking ourselves.
+  // (CRM_Core_Resources::isAjaxMode only exists in >= 4.6, and doesn't cover all cases either.)
+  if ((isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+    return;
+  }
 
-  _spuximprovements_civix_civicrm_config($config);
+  // If not an XHR request, add JS assets to page footer
+  _spuximprovements_load_assets();
 }
 
 /**
@@ -29,9 +40,9 @@ function spuximprovements_civicrm_config(&$config) {
  * Dit is voor Oane en Mathijs. ;-)
  * @param array $returnValues Results returned by org.civicoop.postcodenl
  */
-function spuximprovements_civicrm_postcodenl_get(&$returnValues = array()) {
-  if(count($returnValues) > 0) {
-    foreach($returnValues as &$r) {
+function spuximprovements_civicrm_postcodenl_get(&$returnValues = []) {
+  if (count($returnValues) > 0) {
+    foreach ($returnValues as &$r) {
       $r['gemeente'] = strtoupper($r['gemeente']);
       $r['woonplaats'] = strtoupper($r['woonplaats']);
     }
